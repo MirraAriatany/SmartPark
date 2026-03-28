@@ -1,0 +1,2 @@
+# SmartPark
+O SmartPark é uma solução tecnológica de impacto social desenvolvida para gerenciar o estacionamento irregular em ambientes condominiais.
