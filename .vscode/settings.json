@@ -1,0 +1,37 @@
+{
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "SmartPark_Cantareira",
+            "database": "smartpark_cantareira",
+            "username": "admin_cantareira",
+            "password": "meularcantareira"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "SmartPark_Jaragua",
+            "database": "smartpark_jaragua",
+            "username": "admin_jaragua",
+            "password": "meularjaragua"
+        },
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "SmartPark_Pirituba",
+            "database": "smartpark_pirituba",
+            "username": "admin_pirituba",
+            "password": "meularpirituba"
+        }
+    ]
+}

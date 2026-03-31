@@ -1,0 +1,10 @@
+-- Criando a tabela de Unidades (Torres e Apartamentos)
+CREATE TABLE unidades (
+    id SERIAL PRIMARY KEY,
+    torre VARCHAR(20) NOT NULL,          -- Ex: "Torre A", "Edifício Jaraguá"
+    apartamento VARCHAR(10) NOT NULL,    -- Ex: "101", "12-B"
+    nome_morador VARCHAR(100),           -- Acesso exclusivo da portaria (LGPD)
+    contato_interfone VARCHAR(20),       -- Para a portaria ligar rapidamente
+    possui_veiculo BOOLEAN NOT NULL DEFAULT FALSE, -- Filtro Sim/Não
+    status_tag VARCHAR(30) DEFAULT 'Não se aplica' -- Controle de emissão
+);
