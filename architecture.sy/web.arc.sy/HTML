@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPark | Roteiro de Tecnologias</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #2563eb;
+            --bg-light: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-light);
+            color: #1e293b;
+            scroll-behavior: smooth;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+            background: #eff6ff;
+            border-radius: 8px;
+        }
+
+        .step-node {
+            transition: all 0.3s ease;
+        }
+
+        .step-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+        }
+    </style>
+</head>
+<body class="flex overflow-hidden h-screen">
+
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col h-full z-20">
+        <div class="p-6 border-b border-slate-100 flex items-center gap-3">
+            <div class="bg-blue-600 text-white p-2 rounded-lg">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <span class="font-bold text-xl tracking-tight">SmartPark</span>
+        </div>
+        
+        <nav class="flex-1 p-4 space-y-2">
+            <p class="text-[10px] uppercase font-bold text-slate-400 px-3 mb-2">Desenvolvimento</p>
+            <button onclick="showSpace('arch')" id="btn-arch" class="nav-item active w-full flex items-center gap-3 px-3 py-2 text-sm font-medium transition-all">
+                <i class="fa-solid fa-server"></i> Stack Tecnológica
+            </button>
+            <button onclick="showSpace('public')" id="btn-public" class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-600 transition-all">
+                <i class="fa-solid fa-mobile-screen"></i> Interface Mobile
+            </button>
+            <button onclick="showSpace('admin')" id="btn-admin" class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-600 transition-all">
+                <i class="fa-solid fa-desktop"></i> Painel Portaria
+            </button>
+            <button onclick="showSpace('integrity')" id="btn-integrity" class="nav-item w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-600 hover:text-blue-600 transition-all">
+                <i class="fa-solid fa-user-shield"></i> LGPD e Segurança
+            </button>
+        </nav>
+        
+        <div class="p-4 border-t border-slate-100">
+            <div class="bg-blue-50 p-3 rounded-lg text-[10px] text-blue-700">
+                <p><strong>Status:</strong> Definição de Arquitetura</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto bg-slate-50">
+        <header class="sticky top-0 bg-white/80 backdrop-blur-md border-b border-slate-200 px-8 py-4 z-10 flex justify-between items-center">
+            <h2 id="section-title" class="text-xl font-bold text-slate-800">Stack Tecnológica</h2>
+            <div class="text-sm text-slate-500">
+                <span id="current-date" class="bg-slate-100 px-2 py-1 rounded">2024</span>
+            </div>
+        </header>
+
+        <div id="content-area" class="p-8">
+            </div>
+    </main>
+
+    <script>
+        const contentArea = document.getElementById('content-area');
+        const sectionTitle = document.getElementById('section-title');
+
+        const spaces = {
+            arch: {
+                title: 'Stack Tecnológica: Node.js + PostgreSQL',
+                render: () => `
+                    <div class="max-w-4xl animate-fade-in">
+                        <p class="text-slate-600 mb-8">Base tecnológica para o <strong>Condomínio Meu Lar</strong>, focada em performance e estabilidade.</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200 step-node">
+                                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4 text-xl">
+                                    <i class="fa-solid fa-database"></i>
+                                </div>
+                                <h3 class="font-bold text-slate-800 mb-2">PostgreSQL (Banco)</h3>
+                                <p class="text-xs text-slate-500">Modelagem relacional para vincular Moradores, Carros e Tags sem redundância de dados.</p>
+                            </div>
+                            
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200 step-node">
+                                <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4 text-xl">
+                                    <i class="fa-brands fa-node-js"></i>
+                                </div>
+                                <h3 class="font-bold text-slate-800 mb-2">Node.js (Back-end)</h3>
+                                <p class="text-xs text-slate-500">Motor de processamento que gerencia as notificações e valida os IDs dos QR Codes.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 bg-slate-900 rounded-3xl p-8 text-white">
+                            <h4 class="text-sm font-bold text-blue-400 mb-6 uppercase tracking-widest text-center">Fluxo de Dados Realtime</h4>
+                            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                                <div class="text-center">
+                                    <i class="fa-solid fa-qrcode text-3xl mb-2"></i>
+                                    <p class="text-[10px]">QR Code Lido</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right hidden md:block text-slate-700"></i>
+                                <div class="text-center">
+                                    <i class="fa-solid fa-cloud-arrow-up text-3xl mb-2 text-blue-400"></i>
+                                    <p class="text-[10px]">API Node.js</p>
+                                </div>
+                                <i class="fa-solid fa-arrow-right hidden md:block text-slate-700"></i>
+                                <div class="text-center">
+                                    <i class="fa-solid fa-bell text-3xl mb-2 text-orange-400"></i>
+                                    <p class="text-[10px]">Alerta Portaria</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            public: {
+                title: 'Interface Pública: Otimização Mobile',
+                render: () => `
+                    <div class="grid lg:grid-cols-2 gap-12 max-w-5xl">
+                        <div>
+                            <h3 class="text-lg font-bold mb-4">Acesso via React (Lightweight)</h3>
+                            <p class="text-slate-600 mb-6 text-sm">O vizinho ou passante não precisa baixar nada. Uma página web responsiva cuida de tudo.</p>
+                            <div class="space-y-3">
+                                <div class="p-4 bg-white rounded-xl border border-slate-200 flex items-center gap-4">
+                                    <i class="fa-solid fa-bolt text-yellow-500"></i>
+                                    <span class="text-xs font-semibold">Carregamento em < 1.5 segundos</span>
+                                </div>
+                                <div class="p-4 bg-white rounded-xl border border-slate-200 flex items-center gap-4">
+                                    <i class="fa-solid fa-fingerprint text-blue-500"></i>
+                                    <span class="text-xs font-semibold">IDs de Tags Criptografados</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-60 h-[450px] bg-slate-900 rounded-[2.5rem] p-3 border-[6px] border-slate-800 shadow-2xl">
+                                <div class="bg-white h-full rounded-[2rem] overflow-hidden flex flex-col p-6 text-center">
+                                    <div class="text-blue-600 text-2xl my-4"><i class="fa-solid fa-circle-check"></i></div>
+                                    <h4 class="font-bold text-slate-800 text-sm">SmartPark</h4>
+                                    <p class="text-[9px] text-slate-400 uppercase mt-1">Notificação de Veículo</p>
+                                    <div class="mt-8 bg-slate-50 p-3 rounded-lg border border-slate-100 text-left">
+                                        <p class="text-[9px] text-slate-400">Veículo Identificado</p>
+                                        <p class="text-xs font-bold text-slate-700">Corolla Branco - Bloco A</p>
+                                    </div>
+                                    <button class="mt-auto mb-4 w-full bg-blue-600 text-white py-3 rounded-xl text-[10px] font-bold">
+                                        NOTIFICAR PORTARIA
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            admin: {
+                title: 'Painel da Portaria: Monitoramento Realtime',
+                render: () => `
+                    <div class="space-y-6">
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <p class="text-xs text-slate-400">Alertas Hoje</p>
+                                <p class="text-2xl font-bold">12</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <p class="text-xs text-slate-400">Tempo Médio</p>
+                                <p class="text-2xl font-bold text-green-500">2 min</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl border border-slate-200">
+                                <p class="text-xs text-slate-400">Status do Servidor</p>
+                                <p class="text-2xl font-bold text-blue-500 text-sm mt-2">ONLINE (Socket.io)</p>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                            <h4 class="font-bold mb-4">Monitor de Saúde do Sistema</h4>
+                            <div class="chart-container">
+                                <canvas id="healthChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            integrity: {
+                title: 'Segurança e LGPD',
+                render: () => `
+                    <div class="max-w-2xl space-y-4">
+                        <div class="p-6 bg-white rounded-2xl border border-slate-200">
+                            <h4 class="font-bold text-blue-600 mb-2"><i class="fa-solid fa-shield-halved mr-2"></i> Proteção de Dados</h4>
+                            <p class="text-sm text-slate-600">O telefone e o nome do morador ficam guardados no <strong>PostgreSQL</strong>. Quem escaneia o QR Code não tem acesso a nenhuma informação pessoal.</p>
+                        </div>
+                        <div class="p-6 bg-white rounded-2xl border border-slate-200">
+                            <h4 class="font-bold text-indigo-600 mb-2"><i class="fa-solid fa-lock mr-2"></i> Camada de Autenticação</h4>
+                            <p class="text-sm text-slate-600">Apenas computadores autorizados da portaria conseguem ver quem é o proprietário do veículo.</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function showSpace(spaceId) {
+            // Atualiza Menu
+            document.querySelectorAll('.nav-item').forEach(btn => {
+                btn.classList.remove('active', 'text-blue-600');
+                btn.classList.add('text-slate-600');
+            });
+            document.getElementById(`btn-${spaceId}`).classList.add('active', 'text-blue-600');
+
+            // Atualiza Conteúdo
+            const space = spaces[spaceId];
+            sectionTitle.innerText = space.title;
+            contentArea.innerHTML = space.render();
+
+            if(spaceId === 'admin') {
+                setTimeout(initHealthChart, 100);
+            }
+        }
+
+        function initHealthChart() {
+            const ctx = document.getElementById('healthChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['08h', '10h', '12h', '14h', '16h', '18h'],
+                    datasets: [{
+                        label: 'Latência do Sistema (ms)',
+                        data: [40, 35, 55, 45, 30, 42],
+                        borderColor: '#2563eb',
+                        tension: 0.4,
+                        fill: true,
+                        backgroundColor: 'rgba(37, 99, 235, 0.1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        window.onload = () => {
+            showSpace('arch');
+            document.getElementById('current-date').innerText = new Date().toLocaleDateString('pt-BR');
+        };
+    </script>
+</body>
+</html>

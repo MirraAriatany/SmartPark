@@ -1,9 +1,0 @@
-CREATE TABLE unidades (
-    id SERIAL PRIMARY KEY,
-    torre VARCHAR(20) NOT NULL,
-    apartamento VARCHAR(10) NOT NULL,
-    nome_morador VARCHAR(100),
-    contato_interfone VARCHAR(20),
-    possui_veiculo BOOLEAN NOT NULL DEFAULT FALSE,
-    status_tag VARCHAR(30) DEFAULT 'Pendente'
-);
