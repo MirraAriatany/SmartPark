@@ -1,0 +1,13 @@
+condominium-management/
+├── apps/
+│   ├── web-public/       # Interface Next.js para quem escaneia o QR Code
+│   └── web-admin/        # Painel Next.js para a portaria (Dashboard)
+├── server/
+│   ├── src/
+│   │   ├── controllers/  # Funções que recebem as requisições
+│   │   ├── models/       # Definições das tabelas do PostgreSQL
+│   │   ├── routes/       # Caminhos da API (ex: /notificar)
+│   │   └── services/     # Lógica de negócio (regras do condomínio)
+│   └── prisma/           # Configurações do Banco de Dados (ORM)
+├── docs/                 # Seu PDF, README e Diagramas
+└── shared/               # Tipagens e constantes que ambos (Web/Server) usam
